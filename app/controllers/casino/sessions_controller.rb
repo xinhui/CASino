@@ -9,8 +9,8 @@ class CASino::SessionsController < CASino::ApplicationController
   before_action :ensure_signed_in, only: [:index, :destroy]
 
   def index
-    @ticket_granting_tickets = current_user.ticket_granting_tickets.active
-    @two_factor_authenticators = current_user.two_factor_authenticators.active
+    @ticket_granting_tickets = casino_current_user.ticket_granting_tickets.active
+    @two_factor_authenticators = casino_current_user.two_factor_authenticators.active
   end
 
   def new
@@ -29,13 +29,13 @@ class CASino::SessionsController < CASino::ApplicationController
   end
 
   def destroy
-    tickets = current_user.ticket_granting_tickets.where(id: params[:id])
+    tickets = casino_current_user.ticket_granting_tickets.where(id: params[:id])
     tickets.first.destroy if tickets.any?
     redirect_to sessions_path
   end
 
   def destroy_others
-    current_user
+    casino_current_user
       .ticket_granting_tickets
       .where('id != ?', current_ticket_granting_ticket.id)
       .destroy_all if signed_in?

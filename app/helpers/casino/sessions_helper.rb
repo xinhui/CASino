@@ -17,7 +17,7 @@ module CASino::SessionsHelper
     end
   end
 
-  def current_user
+  def casino_current_user
     tgt = current_ticket_granting_ticket
     return nil if tgt.nil?
     tgt.user
