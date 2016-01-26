@@ -1,4 +1,6 @@
 defaults: &defaults
+  frontend:
+    layout: 'application'
   service_ticket:
     lifetime_unconsumed: 299
   authenticators:

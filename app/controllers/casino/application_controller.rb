@@ -3,7 +3,7 @@ require 'casino'
 class CASino::ApplicationController < ::ApplicationController
   include ApplicationHelper
 
-  layout 'application'
+  layout CASino.config.frontend[:layout]
 
   unless Rails.env.development?
     rescue_from ActionView::MissingTemplate, with: :missing_template
