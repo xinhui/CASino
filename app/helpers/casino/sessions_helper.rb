@@ -64,7 +64,11 @@ module CASino::SessionsHelper
           Rails.logger.warn "Service #{params[:service]} not valid: #{e}"
         end
       end
-      redirect_to sessions_path, status: :see_other
+      if respond_to? :after_casino_signin
+        public_send(:after_casino_signin)
+      else
+        redirect_to sessions_path, status: :see_other
+      end
     end
   end
 

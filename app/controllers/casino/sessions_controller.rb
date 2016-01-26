@@ -47,6 +47,8 @@ class CASino::SessionsController < CASino::ApplicationController
     @url = params[:url]
     if params[:service].present? && service_allowed?(params[:service])
       redirect_to params[:service], status: :see_other
+    elsif respond_to? :after_casino_signout
+      public_send :after_casino_signout
     end
   end
 
