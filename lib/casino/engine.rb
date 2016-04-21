@@ -5,6 +5,12 @@ module CASino
   class Engine < Rails::Engine
     isolate_namespace CASino
 
+    config.to_prepare do
+      Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
+        require_dependency(c)
+      end
+    end
+
     rake_tasks { require 'casino/tasks' }
 
     initializer :yaml_configuration do |app|
